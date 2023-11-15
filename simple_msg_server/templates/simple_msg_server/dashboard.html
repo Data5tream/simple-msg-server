@@ -49,8 +49,8 @@
                     <tbody>
                     {% for entry in entries %}
                         <tr>
-                            <th scope="row">{{ entry.pk }}</th>
-                            <td>{{ entry.form.name }}</td>
+                            <th scope="row"><a href="{% url 'form_entry' pk=entry.pk %}">{{ entry.pk }}</a></th>
+                            <td><a href="{% url 'form_detail' pk=entry.form.pk %}">{{ entry.form.name }}</a></td>
                             <td>{{ entry.created }}</td>
                         </tr>
                     {% empty %}

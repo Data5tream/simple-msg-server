@@ -20,7 +20,7 @@
             <tbody>
             {% for entry in form.entries.all %}
                 <tr>
-                    <td>{{ entry.pk }}</td>
+                    <th scope="row"><a href="{% url 'form_entry' pk=entry.pk %}">{{ entry.pk }}</a></th>
                     {% for field in form.fields %}
                         <td>{{ entry.content|get_by_key:field|truncatechars:92 }}</td>
                     {% endfor %}

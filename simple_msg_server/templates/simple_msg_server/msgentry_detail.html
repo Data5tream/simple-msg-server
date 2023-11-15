@@ -1,0 +1,30 @@
+{% extends 'simple_msg_server/base.html' %}
+{% load custom %}
+
+{% block title %}Message {{ entry.pk }} - {{ entry.form.name }}{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'index' %}">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'form_detail' pk=entry.form.pk %}">{{ entry.form.name }}</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">Message {{ entry.pk }}</li>
+            </ol>
+        </nav>
+        <h1 class="text-center">message #{{ entry.pk }} details</h1>
+        <div class="row gy-2">
+            {% for field in entry.form.fields %}
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ field }}</h5>
+                            <p class="card-text">{{ entry.content|get_by_key:field }}</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
