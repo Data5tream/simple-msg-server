@@ -5,6 +5,12 @@
 
 {% block body %}
     <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'index' %}">Dashboard</a></li>
+                <li class="breadcrumb-item" aria-current="page">{{ form.name }}</li>
+            </ol>
+        </nav>
         <h1 class="text-center">{{ form.name }}</h1>
         <h2>Entries</h2>
         <table class="table">
