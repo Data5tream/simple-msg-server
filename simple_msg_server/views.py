@@ -16,11 +16,13 @@ class DashboardView(TemplateView):
         return context
 
 
+@method_decorator(login_required, name='dispatch')
 class FormDetailView(DetailView):
     model = MsgForm
     context_object_name = 'form'
 
 
+@method_decorator(login_required, name='dispatch')
 class FormEntryDetailView(DetailView):
     model = MsgEntry
     context_object_name = 'entry'
