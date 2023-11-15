@@ -10,7 +10,7 @@ class MsgForm(models.Model):
     name = models.CharField(max_length=128)
     desc = models.CharField(max_length=512)
     fields = models.JSONField()
-    endpoint = models.URLField()
+    endpoint = models.UUIDField(auto_created=True)
 
     def __str__(self):
         return f'{self.id} - {self.name}'
