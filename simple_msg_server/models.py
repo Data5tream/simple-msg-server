@@ -22,5 +22,8 @@ class MsgEntry(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     read_by = models.ForeignKey('User', blank=True, null=True, on_delete=models.PROTECT)
 
+    class Meta:
+        ordering = ['-created']
+
     def __str__(self):
         return f'{self.id} - Answer to {self.form.name} ({self.form_id}) - {self.created}'
