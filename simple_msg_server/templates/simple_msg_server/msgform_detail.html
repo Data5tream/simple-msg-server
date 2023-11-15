@@ -9,17 +9,22 @@
         <h2>Entries</h2>
         <table class="table">
             <thead>
-            <tr>{% for field in form.fields %}
-                <th scope="col">{{ field }}</th>
-            {% endfor %}
+            <tr>
+                <th scope="col">ID</th>
+                {% for field in form.fields %}
+                    <th scope="col">{{ field }}</th>
+                {% endfor %}
+                <th scope="col">Date</th>
             </tr>
             </thead>
             <tbody>
             {% for entry in form.entries.all %}
                 <tr>
+                    <td>{{ entry.pk }}</td>
                     {% for field in form.fields %}
-                        <td>{{ entry.content|get_by_key:field }}</td>
+                        <td>{{ entry.content|get_by_key:field|truncatechars:92 }}</td>
                     {% endfor %}
+                    <td>{{ entry.created }}</td>
                 </tr>
             {% empty %}
                 <tr>
