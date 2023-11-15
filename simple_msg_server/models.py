@@ -19,7 +19,7 @@ class MsgForm(models.Model):
 
 
 class MsgEntry(models.Model):
-    form = models.ForeignKey('MsgForm', on_delete=models.CASCADE)
+    form = models.ForeignKey('MsgForm', on_delete=models.CASCADE, related_name='entries')
     content = models.JSONField()
     created = models.DateTimeField(auto_now_add=True)
     read_by = models.ForeignKey('User', on_delete=models.PROTECT)
