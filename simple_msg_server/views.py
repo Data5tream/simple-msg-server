@@ -1,9 +1,10 @@
-from django.views.generic import TemplateView
+import json
+
+from django.views.generic import TemplateView, DetailView
 
 from simple_msg_server.models import MsgForm, MsgEntry
 
 
-# Create your views here.
 class DashboardView(TemplateView):
     template_name = 'simple_msg_server/dashboard.html'
 
@@ -12,3 +13,8 @@ class DashboardView(TemplateView):
         context['forms'] = MsgForm.objects.all()
         context['msgs'] = MsgEntry.objects.all()[:10]
         return context
+
+
+class FormDetailView(DetailView):
+    model = MsgForm
+    context_object_name = 'form'

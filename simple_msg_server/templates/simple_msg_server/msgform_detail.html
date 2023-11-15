@@ -1,0 +1,36 @@
+{% extends 'simple_msg_server/base.html' %}
+{% load custom %}
+
+{% block title %}{{ form.name }} details{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1 class="text-center">{{ form.name }}</h1>
+        <h2>Entries</h2>
+        <table class="table">
+            <thead>
+            <tr>{% for field in form.fields %}
+                <th scope="col">{{ field }}</th>
+            {% endfor %}
+            </tr>
+            </thead>
+            <tbody>
+            {% for entry in form.entries.all %}
+                <tr>
+                    {% for field in form.fields %}
+                        <td>{{ entry.content|get_by_key:field }}</td>
+                    {% endfor %}
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="100%">
+                        <div class="alert alert-secondary" role="alert">
+                            No entries yet!
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
