@@ -7,7 +7,7 @@ from django.http import JsonResponse
 from django.utils.decorators import method_decorator
 from django.views import View
 from django.views.decorators.csrf import csrf_exempt
-from django.views.generic import TemplateView, DetailView
+from django.views.generic import TemplateView, DetailView, ListView
 
 from simple_msg_server.models import MsgForm, MsgEntry
 
@@ -21,6 +21,12 @@ class DashboardView(TemplateView):
         context['forms'] = MsgForm.objects.all()
         context['entries'] = MsgEntry.objects.all().order_by('-created')[:10]
         return context
+
+
+@method_decorator(login_required, name='dispatch')
+class FormListView(ListView):
+    model = MsgForm
+    context_object_name = 'forms'
 
 
 @method_decorator(login_required, name='dispatch')

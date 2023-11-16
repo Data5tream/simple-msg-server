@@ -1,0 +1,41 @@
+{% extends 'simple_msg_server/base.html' %}
+
+{% block title %}Forms{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'index' %}">Dashboard</a></li>
+                <li class="breadcrumb-item" aria-current="page">Forms</li>
+            </ol>
+        </nav>
+        <h1 class="text-center">Forms</h1>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Entries</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for form in forms %}
+                <tr>
+                    <th scope="row">{{ form.pk }}</th>
+                    <td><a href="{% url 'form_detail' pk=form.pk %}">{{ form.name }}</a></td>
+                    <td>{{ form.entries.count }}</td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="100%">
+                        <div class="alert alert-secondary" role="alert">
+                            No forms yet!
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
