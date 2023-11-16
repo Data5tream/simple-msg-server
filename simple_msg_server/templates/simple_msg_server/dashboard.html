@@ -22,7 +22,7 @@
                         <tr>
                             <th scope="row">{{ form.pk }}</th>
                             <td><a href="{% url 'form_detail' pk=form.pk %}">{{ form.name }}</a></td>
-                            <td>{% if form.entries.all %}{{ form.entries.last.created }}{% else %}-{% endif %}</td>
+                            <td>{% if form.entries.all %}{{ form.entries.first.created }}{% else %}-{% endif %}</td>
                         </tr>
                     {% empty %}
                         <tr>
