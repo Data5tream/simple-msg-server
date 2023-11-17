@@ -24,6 +24,7 @@ pnpm watch
 Prepare django
 
 ```shell
+pip install -r requirements
 python manage.py migrate
 ```
 
