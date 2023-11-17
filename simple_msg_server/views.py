@@ -1,19 +1,19 @@
 import json
 import re
+import uuid
 from http import HTTPStatus
 
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import JsonResponse
 from django.utils.decorators import method_decorator
 from django.views import View
 from django.views.decorators.csrf import csrf_exempt
-from django.views.generic import TemplateView, DetailView, ListView
+from django.views.generic import TemplateView, DetailView, ListView, CreateView
 
-from simple_msg_server.models import MsgForm, MsgEntry
+from .models import MsgForm, MsgEntry
 
 
-@method_decorator(login_required, name='dispatch')
-class DashboardView(TemplateView):
+class DashboardView(LoginRequiredMixin, TemplateView):
     template_name = 'simple_msg_server/dashboard.html'
 
     def get_context_data(self, **kwargs):
@@ -23,20 +23,28 @@ class DashboardView(TemplateView):
         return context
 
 
-@method_decorator(login_required, name='dispatch')
-class FormListView(ListView):
+class FormListView(LoginRequiredMixin, ListView):
     model = MsgForm
     context_object_name = 'forms'
 
 
-@method_decorator(login_required, name='dispatch')
-class FormDetailView(DetailView):
+class FormDetailView(LoginRequiredMixin, DetailView):
     model = MsgForm
     context_object_name = 'form'
 
 
-@method_decorator(login_required, name='dispatch')
-class FormEntryDetailView(DetailView):
+class FormAddView(LoginRequiredMixin, CreateView):
+    model = MsgForm
+    template_name = 'simple_msg_server/msgform_add.html'
+    fields = ['name', 'desc', 'fields']
+    success_url = '/forms'
+
+    def form_valid(self, form):
+        form.instance.endpoint = uuid.uuid4()
+        return super().form_valid(form)
+
+
+class FormEntryDetailView(LoginRequiredMixin, DetailView):
     model = MsgEntry
     context_object_name = 'entry'
 
