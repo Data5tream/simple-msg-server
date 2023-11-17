@@ -86,7 +86,7 @@ const addField = () => {
     fieldCount++;
 };
 
-document.getElementById('addField').addEventListener('click', (ev) => {
+document.getElementById('addField')!.addEventListener('click', (ev) => {
     ev.preventDefault();
     addField();
 });
@@ -96,11 +96,11 @@ const form = document.getElementById('createForm') as HTMLFormElement;
 form.addEventListener('formdata', (ev) => {
     const formData = ev.formData;
 
-    const fieldData = {};
+    const fieldData: { [key: string]: string } = {};
 
-    fieldList.querySelectorAll('.row.field').forEach((field: HTMLDivElement) => {
-        const fieldName = field.querySelector('input').value;
-        const fieldValue = field.querySelector('select').value;
+    (fieldList.querySelectorAll('.row.field') as NodeListOf<HTMLDivElement>).forEach((field: HTMLDivElement) => {
+        const fieldName = field.querySelector('input')!.value;
+        const fieldValue = field.querySelector('select')!.value;
         fieldData[fieldName] = fieldValue;
     });
 
