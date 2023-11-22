@@ -13,7 +13,22 @@ Following environment variables need to be set
 
 ## Running
 
-*Docker image and instructions coming soon*
+Build the container
+
+```shell
+podman build -t simple_msg_server .
+```
+
+Run the container (you need a running `postgres` database)
+
+```shell
+podman run -p 8000:8000 \
+  -e DB_NAME=postgres \
+  -e DB_HOST=host.containers.internal \
+  -e DB_USER=postgres \
+  -e DB_PASS=password \
+  simple_msg_server
+```
 
 ## Developing
 

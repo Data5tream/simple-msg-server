@@ -26,4 +26,5 @@ COPY app /app
 COPY --from=nodebuilder /app/compiled/* /app/simple_msg_server/static/simple_msg_server/js
 
 EXPOSE 8000
-CMD python manage.py runserver
+ENTRYPOINT ["python3"]
+CMD ["manage.py", "runserver", "0.0.0.0:8000"]
