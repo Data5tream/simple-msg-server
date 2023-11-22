@@ -78,11 +78,11 @@ WSGI_APPLICATION = 'simple_msg.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': environ.get('DB_NAME'),
-        'HOST': environ.get('DB_HOST'),
-        'USER': environ.get('DB_USER'),
+        'NAME': environ.get('DB_NAME', 'postgres'),
+        'HOST': environ.get('DB_HOST', 'localhost'),
+        'USER': environ.get('DB_USER', 'postgres'),
         'PASSWORD': environ.get('DB_PASS'),
-        'PORT': '5432',
+        'PORT': environ.get('DB_PORT', '5432'),
     }
 }
 
