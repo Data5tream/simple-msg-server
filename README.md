@@ -2,14 +2,15 @@
 
 Collect and display messages. Either via `formdata` or `json`.
 
-## Environment variables
+## Environment / configuration variables
 
-Following environment variables need to be set
-
-- `DB_HOST`
-- `DB_NAME`
-- `DB_USER`
-- `DB_PASS`
+| Env name  | default value |
+|-----------|---------------|
+| `DB_HOST` | `localhost`   |
+| `DB_NAME` | `postgres`    |
+| `DB_USER` | `postgres`    |
+| `DB_PASS` |               |
+| `DB_PORT` | `6543`        |
 
 ## Running
 
@@ -23,9 +24,7 @@ Run the container (you need a running `postgres` database)
 
 ```shell
 podman run -p 8000:8000 \
-  -e DB_NAME=postgres \
   -e DB_HOST=host.containers.internal \
-  -e DB_USER=postgres \
   -e DB_PASS=password \
   simple_msg_server
 ```
