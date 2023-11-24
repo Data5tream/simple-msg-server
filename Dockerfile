@@ -17,7 +17,11 @@ ENV PYTHONUNBUFFERED 1
 
 WORKDIR /app
 
-RUN pip install --upgrade pip
+RUN apk add nginx && \
+    pip install --upgrade pip
+
+COPY nginx.conf /etc/nginx/
+COPY entrypoint.sh /app
 
 COPY app/requirements.txt /app
 RUN pip install -r requirements.txt
@@ -25,6 +29,7 @@ RUN pip install -r requirements.txt
 COPY app /app
 COPY --from=nodebuilder /app/compiled/* /app/simple_msg_server/static/simple_msg_server/js
 
+RUN python manage.py collectstatic
+
 EXPOSE 8000
-ENTRYPOINT ["python3"]
-CMD ["manage.py", "runserver", "0.0.0.0:8000"]
+ENTRYPOINT ["sh", "/app/entrypoint.sh"]
